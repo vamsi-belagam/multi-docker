@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t vamsibelagam/react-test -f ./client/Dockerfile .client
+  - docker build -t vamsibelagam/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true USERNAME/react-test npm test
@@ -13,7 +13,7 @@ after_success:
   - docker build -t vamsibelagam/multi-nginx ./nginx
   - docker build -t vamsibelagam/multi-server ./server
   - docker build -t vamsibelagam/multi-worker ./worker
-  
+
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
   - docker push vamsibelagam/multi-client
